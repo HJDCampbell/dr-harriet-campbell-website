@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr Harriet Campbell — Counselling Psychologist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sage:       #7a9e7e;
+      --sage-light: #b5cdb7;
+      --sage-pale:  #e8f0e9;
+      --stone:      #c8bfaf;
+      --cream:      #f7f4ef;
+      --bark:       #6b5d4f;
+      --bark-light: #9c8b7a;
+      --text:       #3a3530;
+      --text-muted: #7a7068;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 4rem;
+      background: rgba(247,244,239,0.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(200,191,175,0.3);
+      animation: fadeDown 0.8s ease both;
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--bark);
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--sage); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 10rem 5rem 6rem 6rem;
+      position: relative; z-index: 2;
+      animation: fadeUp 1s 0.3s ease both;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5vw, 4.8rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--bark);
+      margin-bottom: 0.4rem;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--sage);
+    }
+
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: var(--bark-light);
+      margin-bottom: 2.4rem;
+    }
+
+    .hero-desc {
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: var(--text-muted);
+      max-width: 420px;
+      margin-bottom: 3rem;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      padding: 0.9rem 2.4rem;
+      background: var(--sage);
+      color: #fff;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .hero-cta:hover { background: var(--bark); transform: translateY(-2px); }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-right::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--sage-pale) 0%, #d6e8d8 40%, #c2dbbf 100%);
+      z-index: 0;
+    }
+
+    /* organic botanical SVG decoration */
+    .botanical {
+      position: absolute; inset: 0; z-index: 1;
+      opacity: 0.18;
+    }
+
+    .hero-right-content {
+      position: relative; z-index: 2;
+      height: 100%;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .portrait-frame {
+      width: 320px; height: 420px;
+      border-radius: 60% 40% 55% 45% / 50% 50% 50% 50%;
+      background: linear-gradient(160deg, #b5cdb7 0%, #7a9e7e 100%);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 30px 80px rgba(107,93,79,0.2);
+      animation: float 6s ease-in-out infinite;
+      overflow: hidden;
+    }
+
+    .portrait-initials {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 5rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.05em;
+    }
+
+    .hcpc-badge {
+      position: absolute;
+      bottom: 3rem; right: 3rem;
+      background: rgba(247,244,239,0.9);
+      border: 1px solid var(--sage-light);
+      border-radius: 4px;
+      padding: 0.7rem 1.2rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-weight: 500;
+      backdrop-filter: blur(6px);
+      animation: fadeUp 1s 0.8s ease both;
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 7rem 6rem; }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 1.2rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      color: var(--bark);
+      line-height: 1.2;
+      margin-bottom: 1.6rem;
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      background: #fff;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .about-text p {
+      font-size: 0.97rem;
+      line-height: 1.9;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .about-quals {
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+
+    .qual-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.2rem 1.4rem;
+      background: var(--sage-pale);
+      border-left: 3px solid var(--sage);
+      border-radius: 0 4px 4px 0;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .qual-icon { font-size: 1.3rem; margin-top: 0.1rem; flex-shrink: 0; }
+
+    .qual-title {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--bark);
+      margin-bottom: 0.2rem;
+      letter-spacing: 0.02em;
+    }
+
+    .qual-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* ── APPROACH ── */
+    .approach {
+      background: var(--cream);
+      text-align: center;
+    }
+
+    .approach-intro {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--text-muted);
+      max-width: 640px;
+      margin: 0 auto 4rem;
+    }
+
+    .approach-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .approach-card {
+      background: #fff;
+      padding: 2.4rem 2rem;
+      border-radius: 4px;
+      border-top: 3px solid var(--sage-light);
+      text-align: left;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .approach-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(107,93,79,0.1); }
+
+    .card-icon { font-size: 2rem; margin-bottom: 1rem; }
+
+    .card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--bark);
+      margin-bottom: 0.7rem;
+    }
+
+    .card-text {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: var(--text-muted);
+    }
+
+    /* ── SESSIONS ── */
+    .sessions {
+      background: var(--sage-pale);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .sessions-visual {
+      position: relative;
+      height: 360px;
+    }
+
+    .session-blob {
+      position: absolute;
+      border-radius: 60% 40% 50% 50% / 45% 55% 45% 55%;
+      background: linear-gradient(135deg, var(--sage-light), var(--sage));
+    }
+
+    .blob-1 { width: 280px; height: 280px; top: 0; left: 0; opacity: 0.4; animation: blobFloat 8s ease-in-out infinite; }
+    .blob-2 { width: 200px; height: 200px; bottom: 0; right: 0; opacity: 0.25; animation: blobFloat 10s 2s ease-in-out infinite; border-radius: 45% 55% 60% 40% / 55% 45% 55% 45%; }
+
+    .session-card-floating {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border-radius: 8px;
+      padding: 2rem 2.4rem;
+      box-shadow: 0 20px 60px rgba(107,93,79,0.15);
+      width: 260px;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .session-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--sage);
+      line-height: 1;
+    }
+
+    .session-price-label { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.2rem; }
+
+    .session-divider { height: 1px; background: var(--sage-pale); margin: 1rem 0; }
+
+    .session-detail { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; }
+
+    .sessions-text p {
+      font-size: 0.97rem;
+      line-height: 1.9;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .sessions-list {
+      list-style: none;
+      margin-top: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .sessions-list li {
+      display: flex; align-items: center; gap: 0.8rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .sessions-list li::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--sage);
+      flex-shrink: 0;
+    }
+
+    /* ── CONTACT ── */
+    .contact {
+      background: var(--bark);
+      text-align: center;
+      color: #fff;
+    }
+
+    .contact .section-label { color: var(--sage-light); }
+    .contact .section-title { color: #fff; }
+
+    .contact-desc {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.65);
+      max-width: 520px;
+      margin: 0 auto 3rem;
+    }
+
+    .contact-details {
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .contact-item { text-align: center; }
+    .contact-item-label { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sage-light); margin-bottom: 0.4rem; }
+    .contact-item-value { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: rgba(255,255,255,0.9); }
+
+    .contact-cta {
+      display: inline-block;
+      padding: 1rem 2.8rem;
+      border: 1px solid var(--sage-light);
+      color: var(--sage-light);
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.25s;
+    }
+    .contact-cta:hover {
+      background: var(--sage-light);
+      color: var(--bark);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #2e2620;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-align: center;
+      padding: 1.8rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    footer a:hover { color: var(--sage-light); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeUp   { from { opacity: 0; transform: translateY(24px); }  to { opacity: 1; transform: translateY(0); } }
+    @keyframes float    { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+    @keyframes blobFloat { 0%,100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.06) rotate(6deg); } }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 2rem; }
+      .nav-links { gap: 1.5rem; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 8rem 2.5rem 4rem; }
+      .hero-right { height: 360px; }
+      .about, .sessions { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 2.5rem; }
+      section { padding: 5rem 2.5rem; }
+      .approach-grid { grid-template-columns: 1fr; }
+      .contact-details { gap: 2rem; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Dr Harriet Campbell</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="#sessions">Sessions</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Counselling Psychologist · HCPC Registered</p>
+      <h1 class="hero-title">
+        A space to breathe,<br>reflect &amp; heal.
+      </h1>
+      <p class="hero-subtitle">Dr Harriet Campbell · Online Sessions</p>
+      <p class="hero-desc">
+        A warm, confidential space where you can explore your inner world at your own pace. 
+        I offer compassionate, evidence-based counselling psychology to support you through 
+        life's most challenging moments.
+      </p>
+      <a href="#contact" class="hero-cta">Book a Consultation</a>
+    </div>
+
+    <div class="hero-right">
+      <!-- Botanical SVG -->
+      <svg class="botanical" viewBox="0 0 600 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="300" cy="350" rx="200" ry="280" stroke="#7a9e7e" stroke-width="1" fill="none"/>
+        <path d="M300 80 Q380 200 300 350 Q220 200 300 80Z" stroke="#7a9e7e" stroke-width="1" fill="none"/>
+        <path d="M120 200 Q240 280 300 350 Q200 300 120 200Z" stroke="#7a9e7e" stroke-width="1" fill="none"/>
+        <path d="M480 200 Q360 280 300 350 Q400 300 480 200Z" stroke="#7a9e7e" stroke-width="1" fill="none"/>
+        <circle cx="300" cy="350" r="8" fill="#7a9e7e" opacity="0.4"/>
+        <path d="M200 500 Q260 420 300 350" stroke="#7a9e7e" stroke-width="0.8" fill="none"/>
+        <path d="M400 500 Q340 420 300 350" stroke="#7a9e7e" stroke-width="0.8" fill="none"/>
+        <ellipse cx="180" cy="520" rx="40" ry="60" stroke="#7a9e7e" stroke-width="0.8" fill="none" transform="rotate(-20 180 520)"/>
+        <ellipse cx="420" cy="520" rx="40" ry="60" stroke="#7a9e7e" stroke-width="0.8" fill="none" transform="rotate(20 420 520)"/>
+      </svg>
+      <div class="hero-right-content">
+        <div class="portrait-frame">
+          <span class="portrait-initials">HC</span>
+        </div>
+      </div>
+      <div class="hcpc-badge">HCPC Registered</div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-text reveal">
+      <p class="section-label">About Me</p>
+      <h2 class="section-title">Grounded in science,<br>guided by compassion.</h2>
+      <p>
+        I'm Dr Harriet Campbell, a HCPC-registered Counselling Psychologist with extensive 
+        experience supporting individuals through anxiety, depression, relationship difficulties, 
+        grief, trauma, and life transitions.
+      </p>
+      <p>
+        My practice is founded on the belief that every person holds the capacity for growth and 
+        healing. I bring both clinical expertise and genuine warmth to each session, creating a 
+        space where you feel truly heard.
+      </p>
+      <p>
+        I offer online sessions, meaning you can access support from the comfort and safety 
+        of your own home, wherever you are in the UK.
+      </p>
+    </div>
+    <div class="about-quals reveal">
+      <div class="qual-item">
+        <span class="qual-icon">🎓</span>
+        <div>
+          <div class="qual-title">Doctorate in Counselling Psychology</div>
+          <div class="qual-sub">DCounsPsych · Professional Doctorate</div>
+        </div>
+      </div>
+      <div class="qual-item">
+        <span class="qual-icon">🏛️</span>
+        <div>
+          <div class="qual-title">HCPC Registered Psychologist</div>
+          <div class="qual-sub">Health & Care Professions Council</div>
+        </div>
+      </div>
+      <div class="qual-item">
+        <span class="qual-icon">💬</span>
+        <div>
+          <div class="qual-title">Online Sessions Available</div>
+          <div class="qual-sub">Secure video sessions across the UK</div>
+        </div>
+      </div>
+      <div class="qual-item">
+        <span class="qual-icon">🌿</span>
+        <div>
+          <div class="qual-title">Integrative Approach</div>
+          <div class="qual-sub">Tailored to your unique needs & goals</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="approach" id="approach">
+    <p class="section-label reveal">My Approach</p>
+    <h2 class="section-title reveal">How I work with you</h2>
+    <p class="approach-intro reveal">
+      I draw on a range of evidence-based therapeutic approaches, carefully tailored to each 
+      individual. No two people are the same — and neither are their paths to wellbeing.
+    </p>
+    <div class="approach-grid">
+      <div class="approach-card reveal">
+        <div class="card-icon">🌱</div>
+        <h3 class="card-title">Person-Centred</h3>
+        <p class="card-text">You are the expert on your own life. I provide unconditional positive regard and a non-judgemental space for you to explore what matters most.</p>
+      </div>
+      <div class="approach-card reveal">
+        <div class="card-icon">🧠</div>
+        <h3 class="card-title">CBT & ACT</h3>
+        <p class="card-text">Cognitive Behavioural and Acceptance & Commitment approaches help you understand thought patterns and develop practical strategies for lasting change.</p>
+      </div>
+      <div class="approach-card reveal">
+        <div class="card-icon">🤝</div>
+        <h3 class="card-title">Relational</h3>
+        <p class="card-text">The therapeutic relationship itself is a powerful vehicle for healing. I place great importance on building a genuine, trusting connection with you.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SESSIONS -->
+  <section class="sessions" id="sessions">
+    <div class="sessions-visual reveal">
+      <div class="blob-1 session-blob"></div>
+      <div class="blob-2 session-blob"></div>
+      <div class="session-card-floating">
+        <div class="session-price">50</div>
+        <div class="session-price-label">minutes per session</div>
+        <div class="session-divider"></div>
+        <div class="session-detail">
+          Individual therapy<br>
+          Online via secure video<br>
+          Weekly or fortnightly
+        </div>
+      </div>
+    </div>
+
+    <div class="sessions-text reveal">
+      <p class="section-label">Sessions</p>
+      <h2 class="section-title">What to expect</h2>
+      <p>
+        All sessions take place online via a secure, confidential video platform — 
+        accessible from anywhere in the UK, at a time that works for you.
+      </p>
+      <p>
+        We'll begin with an initial consultation to understand your needs, discuss what 
+        you're hoping to achieve, and see if we're the right fit for each other. 
+        There's no pressure or commitment required at this stage.
+      </p>
+      <ul class="sessions-list">
+        <li>Free 20-minute introductory call</li>
+        <li>50-minute individual sessions</li>
+        <li>Flexible scheduling, including evenings</li>
+        <li>Short-term and open-ended therapy available</li>
+        <li>Strict confidentiality & HCPC ethical standards</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <p class="section-label reveal">Get in Touch</p>
+    <h2 class="section-title reveal">Begin your journey</h2>
+    <p class="contact-desc reveal">
+      Taking the first step is often the hardest part. I'd love to hear from you — 
+      reach out and we can arrange a free introductory call to talk through how I might help.
+    </p>
+    <div class="contact-details reveal">
+      <div class="contact-item">
+        <div class="contact-item-label">Email</div>
+        <div class="contact-item-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6f070a0303002f070e1d1d060a1b0c0e021f0d0a0303410c00411a04">[email&#160;protected]</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-label">Phone</div>
+        <div class="contact-item-value">+44 (0)7000 000 000</div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-label">Sessions</div>
+        <div class="contact-item-value">Online · UK Wide</div>
+      </div>
+    </div>
+    <a href="/cdn-cgi/l/email-protection#6f070a0303002f070e1d1d060a1b0c0e021f0d0a0303410c00411a04" class="contact-cta reveal">Send an Email</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Dr Harriet Campbell · Counselling Psychologist</span>
+    <span>HCPC Registered · <a href="#">Privacy Policy</a></span>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new Intersectio
